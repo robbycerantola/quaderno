@@ -1,8 +1,17 @@
- {% extends 'base.html' %}
-    {% block content %}
-    <h2>Lista Attività</h2>
+ <!-- {% extends 'base.html' %} -->
+<!DOCTYPE html>
+    <html>
+		
+    <head>Lucrari
+</head>
+<body>
+    <!--{% block content %}-->
+<a href='/'>Inapoi</a> 
+
+ <div>
+    <h2>Lista Lucrari</h2>
     <form method="get">
-        <label for="status">Filtra per stato:</label>
+        <label for="status">Filtru dupa status:</label>
         <select name="status" id="status">
             <option value="">Tutti</option>
             {% for key, label in status_choices %}
@@ -10,7 +19,7 @@
             {% endfor %}
         </select>
         
-        <label for="operatore">Filtra per operatore:</label>
+        <label for="operatore">Filtru dupa operator:</label>
         <select name="operatore" id="operatore">
             <option value="">Tutti</option>
             {% for persona in operatore_list %}
@@ -18,7 +27,7 @@
             {% endfor %}
         </select>
         
-        <button type="submit">Filtra</button>
+        <button type="submit">Filtreaza</button>
     </form>
     <ul>
         {% for attivita in attivita %}
@@ -36,4 +45,8 @@
         </li>
         {% endfor %}
     </ul>
-    {% endblock %}
+</div>
+   <!-- {% endblock %}-->
+ </body>
+ </html>   
+
