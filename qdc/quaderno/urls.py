@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import lista_campi, lista_mezzi, lista_operatore, home, lista_attivita, cambia_status_attivita, lista_trattamenti
+from .views import lista_campi, lista_mezzi, lista_operatore, home, lista_attivita, cambia_status_attivita, lista_trattamenti, modifica_attivita, modifica_trattamento
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
@@ -25,7 +25,9 @@ urlpatterns = [
     path('mezzi/', lista_mezzi, name='lista_mezzi'),
     path('operatore/', lista_operatore, name='lista_operatore'),
     path('attivita/', lista_attivita, name='lista_attivita'),
-    path('attivita/<int:attivita_id>/cambia_status/', cambia_status_attivita, name='cambia_status_attivita'),
+    path('attivita/<int:attivita_id>/modifica/', modifica_attivita, name='modifica_attivita'),
+    path('attivita_semplice/<int:attivita_id>/cambia_status/', cambia_status_attivita, name='cambia_status_attivita'),
     path('trattamenti/', lista_trattamenti, name='lista_trattamenti'),
+    path('trattamenti/<int:trattamento_id>/modifica/', modifica_trattamento, name='modifica_trattamento'),
 ]
 

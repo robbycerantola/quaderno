@@ -53,7 +53,7 @@ class Operazione(models.Model):
      descrizione = models.TextField(blank=True, null=True)
  
      class Meta:
-        verbose_name_plural = "Operatii"
+        verbose_name_plural = "Lucrari"
      
      def __str__(self):
         return self.tipo  	
@@ -110,6 +110,7 @@ class Trattamento(models.Model):
     data = models.DateField()
     operatore = models.ForeignKey(Operatore, on_delete=models.SET_NULL, null=True)
     responsabile = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    nota = models.TextField(null=True, blank=True) 
 
 
     class Meta:
