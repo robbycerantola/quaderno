@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h2>Lista dei Campi</h2>
+    <ul>
+        {% for campo in campi %}
+        <li>{{ campo.nome }} - {{ campo.localizzazione }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

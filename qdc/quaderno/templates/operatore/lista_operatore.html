@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h2>Lista del Personale</h2>
+    <ul>
+        {% for persona in operatore %}
+        <li>{{ persona.nome }} - {{ persona.ruolo }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h2>Lista dei Mezzi Agricoli</h2>
+    <ul>
+        {% for mezzo in mezzi %}
+        <li>{{ mezzo.nome }} - {{ mezzo.tipo }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

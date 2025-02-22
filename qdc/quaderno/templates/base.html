@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+    <html>
+		
+    <head>
+		<link rel="stylesheet" href="{% static 'mystyles.css' %}">  
+        <title>Quaderno di Campagna</title>
+    </head>
+    <body>
+        <h1> Benvenuto nel Quaderno di Campagna, {{request.user.username}}</h1>
+        
+        <nav>
+            
+            <a href='/attivita/'>Attivita</a> |
+            <a href='/trattamenti/'>Trattamenti</a> |
+            <a href='/admin/'>Admin</a>
+        </nav>
+        <div>{% block content %}{% endblock %}</div>
+    </body>
+    
+    {% include "footer.html" %}
+    </html>

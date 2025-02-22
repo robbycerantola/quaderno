@@ -1,0 +1,39 @@
+ {% extends 'base.html' %}
+    {% block content %}
+    <h2>Lista Attività</h2>
+    <form method="get">
+        <label for="status">Filtra per stato:</label>
+        <select name="status" id="status">
+            <option value="">Tutti</option>
+            {% for key, label in status_choices %}
+            <option value="{{ key }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="operatore">Filtra per operatore:</label>
+        <select name="operatore" id="operatore">
+            <option value="">Tutti</option>
+            {% for persona in operatore_list %}
+            <option value="{{ persona.id }}">{{ persona.nome }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">Filtra</button>
+    </form>
+    <ul>
+        {% for attivita in attivita %}
+        <li>
+            {{ attivita.tipo }} - {{ attivita.campo.nome }} - {{ attivita.status }} - {{ attivita.data }} - {{ attivita.descrizione}}
+            <form method="post" action="{% url 'cambia_status_attivita' attivita.id %}">
+                {% csrf_token %}
+                <select name="status">
+                    {% for key, label in status_choices %}
+                    <option value="{{ key }}" {% if attivita.status == key %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Cambia</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
