@@ -5,8 +5,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Campo(models.Model):
+    PROPRIETA_CHOICES = [
+        ('proprio','Proprie'),
+        ('arenda','Arenda'),
+        ('cooperativa','Cooperativa'),
+        ('terzi','Terti'),
+    ]
+	
     nome = models.CharField(max_length=100)
     superficie = models.FloatField()  # Superficie in ettari
+    proprieta = models.CharField(max_length=12, default= 'proprio', choices=PROPRIETA_CHOICES)
     varieta = models.CharField(max_length=100)
     posizione = models.TextField()
     coordinate_catastali = models.CharField(max_length=255, blank=True, null=True)
@@ -21,7 +29,10 @@ class Campo(models.Model):
     
     def google_maps_link(self):
         if self.latitudine and self.longitudine:
-            return f"https://www.google.com/maps/search/?api=1&query={self.latitudine},{self.longitudine}"
+			#MAPS
+            #return f"https://www.google.com/maps/search/?api=1&query={self.latitudine},{self.longitudine}" 
+            #MY MAPS Dealu Daiconi
+            return f"https://www.google.com/maps/d/embed?mid=1-y70JbWZJSuqOpjgdTz3AYbtJck&ehbc=2E312F&api=1&query={self.latitudine},{self.longitudine}" 
         return ""
 
 class MezzoAgricolo(models.Model):
@@ -53,7 +64,7 @@ class Operazione(models.Model):
      descrizione = models.TextField(blank=True, null=True)
  
      class Meta:
-        verbose_name_plural = "Lucrari"
+        verbose_name_plural = "Tipuri lucrari"
      
      def __str__(self):
         return self.tipo  	
@@ -76,7 +87,7 @@ class Attivita(models.Model):
     operatore = models.ForeignKey(Operatore, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        verbose_name_plural = "Activitati"
+        verbose_name_plural = "Lucrari"
 
     list_filter= [STATUS_CHOICES]
     
@@ -90,7 +101,7 @@ class ProdottoFitosanitario(models.Model):
     note = models.TextField(blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = "Produse fitosanitare"
+        verbose_name_plural = "Fitosanitare/ingrasaminte"
 
     def __str__(self):
         return self.nome

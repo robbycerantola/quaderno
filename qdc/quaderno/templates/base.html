@@ -31,13 +31,17 @@
         <title>Quaderno di Campagna</title>
     </head>
     <body>
-        <h1> Quaderno di Campagna </h1>
-        <h2>Utilizator {{request.user.username}}</h2>
+        <h1> Quaderno di Campagna</h1> 
+        <h2>Registru tratamente si lucrari</h2>
+        <h3>Utilizator {{request.user.username}}</h3>
         
         <nav>
             
             <a href='/attivita/'>Lucrari</a> 
-            <a href='/trattamenti/'>Tratamente</a> 
+            <a href='/trattamenti/'>Tratamente</a>
+            
+            <a href='/campi/'>Parcele</a>
+            <br><br>
             <a href='/admin/'>Admin</a>
             
         </nav>

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quaderno',  # App per la gestione del quaderno di campagna
+    'bottiglia', # App per la gestione dell imbottigliamento
 ]
 
 # Middleware richiesti per Django Admin

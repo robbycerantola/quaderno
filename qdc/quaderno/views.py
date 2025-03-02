@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from quaderno.models import Campo, MezzoAgricolo, Operatore, Attivita, Trattamento
-
+from django.utils.translation import gettext as _
 
 def home(request):
     #return HttpResponse("Benvenuto nel Quaderno di Campagna")
@@ -44,7 +44,7 @@ def lista_trattamenti(request):
         'status_choices': Trattamento.STATUS_CHOICES,
         'operatore_list': Operatore.objects.all()
     })
-	#return redirect('lista_attivita')
+	
 
 def modifica_trattamento(request, trattamento_id):
     trattamento = get_object_or_404(Trattamento, id=trattamento_id)

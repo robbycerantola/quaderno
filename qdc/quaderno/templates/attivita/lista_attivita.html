@@ -37,9 +37,11 @@
     <ul>
 		<table>
         {% for attivita in attivita %}
+        {% if attivita.status != "done" %}
         <tr><td>
         <li>
-            {{ attivita.tipo }} - {{ attivita.campo.nome }} - {{ attivita.status }} - {{ attivita.data }} - {{ attivita.operatore.nome}}
+			
+            {{ attivita.operazione }} - {{ attivita.campo.nome }} - {{ attivita.data }} - {{ attivita.operatore.nome}}
             <form method="post" action="{% url 'modifica_attivita' attivita.id %}">
                 {% csrf_token %}
                 <select name="status">
@@ -47,11 +49,16 @@
                     <option value="{{ key }}" {% if attivita.status == key %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
                 </select>
-                <input type="text" name="descrizione" value="{{ attivita.descrizione }}">
+                
+                <textarea name="descrizione" rows="3" cols="20" value="{{ attivita.descrizione }}"> {{ attivita.descrizione }}</textarea>
                 <button type="submit">Salva Modifiche</button>
+                {% if trattamento.campo.google_maps_link %}
+			       <a href="{{ attivita.campo.google_maps_link }}" target="_blank">Google Maps</a>
+                {% endif %}
             </form>
         </li>
         </td></tr>
+        {% endif %}
         {% endfor %}
     </table>
     </ul>

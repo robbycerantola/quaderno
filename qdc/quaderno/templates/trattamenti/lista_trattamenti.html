@@ -37,9 +37,11 @@
     <ul>
 		<table>
         {% for trattamento in trattamento %}
+        {% if trattamento.status != "done" %}
         <tr><td>
         <li>
-            {{ trattamento.tipo }} - {{ trattamento.campo.nome }} - {{ trattamento.status }} - {{trattamento.prodotto}} {{trattamento.dose}} kg/hectar {{ trattamento.data }} - {{ trattamento.operatore.nome}}
+            {{ trattamento.tipo }} - {{ trattamento.campo.nome }} - {{trattamento.prodotto}} {{trattamento.dose}} kg/hectar {{ trattamento.data }} - {{ trattamento.operatore.nome}}
+
             <form method="post" action="{% url 'modifica_trattamento' trattamento.id %}">
                 {% csrf_token %}
                 <select name="status">
@@ -47,12 +49,19 @@
                     <option value="{{ key }}" {% if trattamento.status == key %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
                 </select>
-                <input type="text" name="nota" value="{{ trattamento.nota }}">
+                
+                <textarea name="nota" rows="3" cols="20" value="{{ trattamento.nota }}"> {{ trattamento.nota }}</textarea>
                 <button type="submit">Salva Modifiche</button>
+            
+            {% if trattamento.campo.google_maps_link %}
+            <a href="{{ trattamento.campo.google_maps_link }}" target="_blank">Google Maps</a>
+            {% endif %}
             </form>
         </li>
         </td></tr>
+        {% endif %}
         {% endfor %}
+        
     </table>
     </ul>
  </body>
