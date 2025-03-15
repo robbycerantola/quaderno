@@ -16,20 +16,23 @@
 <a href='/'>Inapoi</a> 
 
 
-    <h2>Lista cu Tratamente</h2>
+    <h2>Lista cu Tratamente pentru {{user.username}} {{user.id}}</h2>
     <form method="get">
         <label for="status">Filtru dupa status:</label>
         <select name="status" id="status">
             <option value="">Tot</option>
             {% for key, label in status_choices %}
-            <option value="{{ key }}">{{ label }}</option>
+            <option value="{{ key }}"{% if key == request.GET.status %}selected{% endif %}> {{ label }} </option>
             {% endfor %}
         </select>
         <label for="operatore">Filtru dupa operator:</label>
         <select name="operatore" id="operatore">
-            <option value="">Tot</option>
+            <option value="Tot">Tot</option>
             {% for persona in operatore_list %}
-            <option value="{{ persona.id }}">{{ persona.nome }}</option>
+            <option value="{{ persona.id }}" {% if persona.id|stringformat:"s" == selected_operatore|stringformat:"s" %}selected{% endif %}>
+				{{ persona.nome }}
+            
+            </option>
             {% endfor %}
         </select>
         <button type="submit">Filtreaza</button>

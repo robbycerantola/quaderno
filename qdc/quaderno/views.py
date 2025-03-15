@@ -43,8 +43,19 @@ def cambia_status_attivita(request, attivita_id):
     return redirect('lista_attivita')
 
 def lista_trattamenti(request):
-    status_filter = request.GET.get('status', '')
+    status_filter = request.GET.get('status', '')   
     operatore_filter = request.GET.get('operatore', '')
+
+    if operatore_filter != "Tot":
+        if not operatore_filter and request.user.is_authenticated:
+            try:
+                operatore = Operatore.objects.get(nome=request.user.username)
+                operatore_filter = operatore.id
+            except Operatore.DoesNotExist:
+                operatore_filter = ''
+    else:
+         operatore_filter = ''
+
     trattamento = Trattamento.objects.all()
     
     if status_filter:
@@ -55,7 +66,8 @@ def lista_trattamenti(request):
     return render(request, 'trattamenti/lista_trattamenti.html', {
         'trattamento': trattamento,
         'status_choices': Trattamento.STATUS_CHOICES,
-        'operatore_list': Operatore.objects.all()
+        'operatore_list': Operatore.objects.all(),
+        'selected_operatore': operatore_filter
     })
 	
 
