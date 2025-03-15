@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+    <html>
+		
+    <head>
+		
+		<style>
+         body {
+			 background-image: url({% static 'background.jpg' %});
+			 background-size: cover;
+			 opacity: 0,5;
+			 }
+        </style>
+        
+        <style>	
+         a:link, a:visited {
+         background-color: #f44336;
+         color: white;
+         padding: 24px 35px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+          }
+
+         a:hover, a:active {
+         background-color: red;
+         }
+        </style>
+        
+		<link rel="stylesheet" href="{% static 'mystyles.css' %}">  
+        <title>Quaderno di Campagna</title>
+    </head>
+    <body>
+        <h1> Quaderno di Campagna</h1> 
+        <h2>Registru tratamente si lucrari</h2>
+      {% if user.is_authenticated %}
+        <h3>Utilizator {{request.user.username}}</h3>
+        
+        <nav>
+            
+            <a href='/attivita/'>Lucrari</a> 
+            <a href='/trattamenti/'>Tratamente</a>
+            
+            <a href='/campi/'>Parcele</a>
+            <br><br>
+            <a href='/admin/'>Admin</a>
+            
+        </nav>
+        
+        <div>{% block content %}{% endblock %}</div>
+       {% else %}
+       <form method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        {% endif %}
+    </body>
+    
+    {% include "footer.html" %}
+    </html>

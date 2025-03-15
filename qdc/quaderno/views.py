@@ -4,10 +4,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from quaderno.models import Campo, MezzoAgricolo, Operatore, Attivita, Trattamento
 from django.utils.translation import gettext as _
+from django.contrib.auth import authenticate, login
 
 def home(request):
     #return HttpResponse("Benvenuto nel Quaderno di Campagna")
-	return render(request, 'base.html')
+    if request.user is None:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+        
+    return render(request, 'base.html')
+
+def menu(request):
+	return render(request, 'menu.html')
 	
 def lista_campi(request):
     campi = Campo.objects.all()
